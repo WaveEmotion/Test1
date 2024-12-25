@@ -128,9 +128,8 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const letters = Array(256).join("1").split("");
+        const letters = Array.from({ length: Math.floor(canvas.width / 16) }, () => 0);
         const fontSize = 16;
-        const columns = canvas.width / fontSize;
 
         const draw = () => {
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
@@ -139,7 +138,7 @@
             ctx.font = `${fontSize}px monospace`;
 
             letters.forEach((y, index) => {
-                const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+                const text = String.fromCharCode(33 + Math.random() * 94); // ASCII characters from ! to ~
                 const x = index * fontSize;
                 ctx.fillText(text, x, y);
                 if (y > canvas.height && Math.random() > 0.975) {
