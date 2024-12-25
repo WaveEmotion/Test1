@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: #00ff00;
+            overflow: hidden;
+        }
+        header {
+            background-color: black;
+            color: #00ff00;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        nav {
+            margin: 0 auto;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+        }
+        nav a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 255, 0, 0.5);
+        }
+        h2 {
+            color: #00ff00;
+        }
+        .skills ul, .projects ul {
+            list-style: none;
+            padding: 0;
+        }
+        .skills li, .projects li {
+            margin: 0.5rem 0;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: black;
+            color: #00ff00;
+        }
+        .matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix">
+        <canvas id="matrixCanvas"></canvas>
+    </div>
+    <header>
+        <h1>Welcome to [Your Name]'s Portfolio</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            Hi, I'm [Your Name], a data science undergraduate passionate about uncovering insights from data and creating meaningful solutions. I specialize in Python, machine learning, and data visualization.
+        </p>
+    </section>
+
+    <section id="skills" class="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>Programming Languages: Python, R, SQL</li>
+            <li>Data Visualization: Tableau, Matplotlib, Seaborn</li>
+            <li>Machine Learning: Scikit-learn, TensorFlow</li>
+            <li>Tools: Git, Jupyter Notebooks, Pandas</li>
+        </ul>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <ul>
+            <li><strong>Project 1:</strong> Predictive Analytics Model for [Problem] - <a href="#">GitHub Link</a></li>
+            <li><strong>Project 2:</strong> Data Visualization Dashboard for [Topic] - <a href="#">GitHub Link</a></li>
+            <li><strong>Project 3:</strong> Machine Learning Pipeline for [Use Case] - <a href="#">GitHub Link</a></li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>
+            Let's connect! Feel free to reach out via email at <a href="mailto:your.email@example.com">your.email@example.com</a> or connect with me on <a href="#">LinkedIn</a>.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 [Your Name]. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = Array(256).join("1").split("");
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const draw = () => {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00ff00";
+            ctx.font = `${fontSize}px monospace`;
+
+            letters.forEach((y, index) => {
+                const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+                const x = index * fontSize;
+                ctx.fillText(text, x, y);
+                if (y > canvas.height && Math.random() > 0.975) {
+                    letters[index] = 0;
+                } else {
+                    letters[index] = y + fontSize;
+                }
+            });
+        };
+
+        setInterval(draw, 50);
+    </script>
+</body>
+</html>
